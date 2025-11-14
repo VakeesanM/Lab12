@@ -166,10 +166,10 @@ public class FamilyTree {
         // Get nodes for input names.
         TreeNode node1 = root.getNodeWithName(name1);        // node whose name is name1
         if (node1 == null)
-            throw new TreeException(node1 + "is not found");
+            throw new TreeException(node1 + " is not found");
         TreeNode node2 = root.getNodeWithName(name2);        // node whose name is name2
         if (node2 == null)
-            throw new TreeException(node1 + "is not found");
+            throw new TreeException(node2 + "is not found");
         
         // Get ancestors of node1 and node2.
         ArrayList<TreeNode> ancestorsOf1 = node1.collectAncestorsToList();
@@ -194,8 +194,8 @@ public class FamilyTree {
             FamilyTree tree = new FamilyTree();
             
             System.out.println("Tree:\n" + tree + "\n**************\n");
-            TreeNode ancestor = tree.getMostRecentCommonAncestor("Bilbo", "Frodo");
-            System.out.println("Most recent common ancestor of Bilbo and Frodo is " + ancestor.getdata());
+            TreeNode ancestor = tree.getMostRecentCommonAncestor("Athena", "Apollo");
+            System.out.println("Most recent common ancestor of Athena and Apollo is " + ancestor.getdata());
         } catch (IOException x) {
             System.out.println("IO trouble: " + x.getMessage());
         } catch (TreeException x) {
