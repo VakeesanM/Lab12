@@ -7,21 +7,21 @@ import javax.swing.filechooser.*;
 
 public class FamilyTree {
 
-    private static class TreeNode {
-        private String name;
-        private TreeNode parent;
-        private ArrayList<TreeNode> children;
+    private static class TreeNode<T> {
+        private T data;
+        private TreeNode<T> parent;
+        private ArrayList<TreeNode<T>> children;
 
-        TreeNode(String name) {
-            this.name = name;
+        TreeNode(T data) {
+            this.data = data;
             children = new ArrayList<>();
         }
 
-        String getName() {
-            return name;
+        T getdata() {
+            return data;
         }
 
-        void addChild(TreeNode childNode) {
+        void addChild(TreeNode<T> childNode) {
             // Add childNode to this node's children list. Also
             // set childNode's parent to this node.
 
@@ -31,15 +31,15 @@ public class FamilyTree {
 
         // Searches subtree at this node for a node
         // with the given name. Returns the node, or null if not found.
-        TreeNode getNodeWithName(String targetName) {
+        TreeNode getNodeWithName(T targetName) {
             // Does this node have the target name?
-            if (this.getName().equals(targetName))
+            if (this.getdata().equals(targetName))
                 return this;
                     
             // No, recurse. Check all children of this node.
-            for (TreeNode child: children)
+            for (TreeNode<T> child: children)
             {
-                TreeNode correctNode = child.getNodeWithName(targetName);
+                TreeNode<T> correctNode = child.getNodeWithName(targetName);
                 if (correctNode != null){
                     return correctNode;
                 }
@@ -57,15 +57,15 @@ public class FamilyTree {
         // Returns a list of ancestors of this TreeNode, starting with this node’s
         // parent and
         // ending with the root. Order is from recent to ancient.
-        ArrayList<TreeNode> collectAncestorsToList() {
-            ArrayList<TreeNode> ancestors = new ArrayList<>();
+        ArrayList<TreeNode<T>> collectAncestorsToList() {
+            ArrayList<TreeNode<T>> ancestors = new ArrayList<>();
 
             // ????? Collect ancestors of this TreeNode into the array list. HINT: going up
             // the nodes of a tree is like traversing a linked list. If that isn’t clear,
             // draw a tree, mark any leaf node, and then mark its ancestors in order from
             // recent to ancient. Expect a question about this on the final exam.
 
-            TreeNode cur = this.parent;
+            TreeNode<T> cur = this.parent;
             while (cur != null){
                 ancestors.add(cur);
                 cur = cur.parent;
@@ -79,7 +79,7 @@ public class FamilyTree {
         }
 
         private String toStringWithIndent(String indent) {
-            String s = indent + name + "\n";
+            String s = indent + data + "\n";
             indent += "  ";
             for (TreeNode childNode : children)
                 s += childNode.toStringWithIndent(indent);
@@ -192,9 +192,10 @@ public class FamilyTree {
     public static void main(String[] args) {
         try {
             FamilyTree tree = new FamilyTree();
+            
             System.out.println("Tree:\n" + tree + "\n**************\n");
             TreeNode ancestor = tree.getMostRecentCommonAncestor("Bilbo", "Frodo");
-            System.out.println("Most recent common ancestor of Bilbo and Frodo is " + ancestor.getName());
+            System.out.println("Most recent common ancestor of Bilbo and Frodo is " + ancestor.getdata());
         } catch (IOException x) {
             System.out.println("IO trouble: " + x.getMessage());
         } catch (TreeException x) {
